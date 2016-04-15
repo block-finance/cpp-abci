@@ -1,3 +1,6 @@
 [submodule "dependencies/boost"]
 	path = dependencies/boost
 	url = https://github.com/boostorg/boost.git
+[submodule "dependencies/protobuf"]
+	path = dependencies/protobuf
+	url = https://github.com/google/protobuf.git
