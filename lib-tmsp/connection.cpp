@@ -139,7 +139,7 @@ bool write_variable_integer(buffer_type::pointer& iter, buffer_type::pointer end
 }	// namespace wire
 
 
-connection_type::connection_type(boost::asio::ip::tcp::socket& socket, application_ptr_type const& application) :
+connection_type::connection_type(boost::asio::ip::tcp::socket socket, application_ptr_type const& application) :
 	socket_(std::move(socket)),
 	read_head_(read_buffer_.data()),
 	read_tail_(read_head_),

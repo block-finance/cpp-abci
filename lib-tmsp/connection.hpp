@@ -17,7 +17,7 @@ typedef std::array<char, 8192> buffer_type;
 class connection_type : public std::enable_shared_from_this<connection_type>
 {
 public:
-	connection_type(boost::asio::ip::tcp::socket& socket, application_ptr_type const& application);
+	connection_type(boost::asio::ip::tcp::socket socket, application_ptr_type const& application);
 
 	void start();
 
