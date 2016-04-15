@@ -139,12 +139,13 @@ bool write_variable_integer(buffer_type::pointer& iter, buffer_type::pointer end
 }	// namespace wire
 
 
-connection_type::connection_type(boost::asio::ip::tcp::socket& socket) :
+connection_type::connection_type(boost::asio::ip::tcp::socket& socket, application_ptr_type const& application) :
 	socket_(std::move(socket)),
 	read_head_(read_buffer_.data()),
 	read_tail_(read_head_),
 	write_head_(write_buffer_.data()),
-	write_tail_(write_head_)
+	write_tail_(write_head_),
+	application_(application)
 {
 }
 
@@ -266,15 +267,8 @@ bool connection_type::prepare_response_(types::Request const& request, types::Re
 {
 	if(request.type() == types::Echo)
 	{
-		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": Echo \"" << request.data() << "\"";
 		response.set_type(types::Echo);
-		response.set_code(types::OK);
 		response.set_data(request.data());
-		return true;
-	}
-	else if(request.type() == types::Info)
-	{
-		response.set_type(types::Info);
 		response.set_code(types::OK);
 		return true;
 	}
@@ -284,36 +278,67 @@ bool connection_type::prepare_response_(types::Request const& request, types::Re
 		response.set_code(types::OK);
 		return true;
 	}
-	else if(request.type() == types::CheckTx)
+	else if(request.type() == types::Info)
 	{
+		std::string out;
+		application_->info(out);
+		response.set_type(types::Info);
+		response.set_data(out);
+		return true;
+	}
+	else if(request.type() == types::SetOption)
+	{
+		std::string log;
+		application_->set_option(request.key(), request.value(), log);
+		response.set_type(types::SetOption);
+		response.set_log(log);
+		return true;
+	}
+	else if(request.type() == types::Query)
+	{
+		std::string out, log;
+		response.set_code(application_->query(request.data(), out, log));
 		response.set_type(types::CheckTx);
-		response.set_code(types::OK);
-		response.set_log("CheckTx on consensus connection");
-		return true;
-	}
-	else if(request.type() == types::AppendTx)
-	{
-		response.set_type(types::AppendTx);
-		response.set_code(types::OK);
-		response.set_log("AppendTx on consensus connection");
-		return true;
-	}
-	else if(request.type() == types::Commit)
-	{
-		response.set_type(types::Commit);
-		response.set_code(types::OK);
+		response.set_data(out);
+		response.set_log(log);
 		return true;
 	}
 	else if(request.type() == types::BeginBlock)
 	{
-		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": BeginBlock @ " << request.height();
+		application_->begin_block(request.height());
 		return false;
 	}
 	else if(request.type() == types::EndBlock)
 	{
-		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": EndBlock @ " << request.height();
 		response.set_type(types::EndBlock);
-		response.set_code(types::OK);
+		response.set_code(application_->end_block(request.height()));
+		return true;
+	}
+	else if(request.type() == types::CheckTx)
+	{
+		std::string out, log;
+		response.set_code(application_->check_tx(request.data(), out, log));
+		response.set_type(types::CheckTx);
+		response.set_data(out);
+		response.set_log(log);
+		return true;
+	}
+	else if(request.type() == types::AppendTx)
+	{
+		std::string out, log;
+		response.set_code(application_->append_tx(request.data(), out, log));
+		response.set_type(types::AppendTx);
+		response.set_data(out);
+		response.set_log(log);
+		return true;
+	}
+	else if(request.type() == types::Commit)
+	{
+		std::string out, log;
+		application_->commit(out, log);
+		response.set_type(types::Commit);
+		response.set_data(out);
+		response.set_log(log);
 		return true;
 	}
 

@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib-tmsp", "lib-tmsp\lib-tmsp.vcxproj", "{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app-counter", "app-counter\app-counter.vcxproj", "{DD3F33CA-1D18-4955-9987-315A7AD22DC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}.Debug|x64.Build.0 = Debug|x64
 		{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}.Release|x64.ActiveCfg = Release|x64
 		{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}.Release|x64.Build.0 = Release|x64
+		{DD3F33CA-1D18-4955-9987-315A7AD22DC1}.Debug|x64.ActiveCfg = Debug|x64
+		{DD3F33CA-1D18-4955-9987-315A7AD22DC1}.Debug|x64.Build.0 = Debug|x64
+		{DD3F33CA-1D18-4955-9987-315A7AD22DC1}.Release|x64.ActiveCfg = Release|x64
+		{DD3F33CA-1D18-4955-9987-315A7AD22DC1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

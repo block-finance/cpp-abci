@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "application.hpp"
 #include <tmsp/types.pb.h>
 #include <boost/asio.hpp>
 #include <memory>
@@ -16,7 +17,7 @@ typedef std::array<char, 8192> buffer_type;
 class connection_type : public std::enable_shared_from_this<connection_type>
 {
 public:
-	connection_type(boost::asio::ip::tcp::socket& socket);
+	connection_type(boost::asio::ip::tcp::socket& socket, application_ptr_type const& application);
 
 	void start();
 
@@ -28,6 +29,7 @@ protected:
 	buffer_type::pointer read_tail_;
 	buffer_type::pointer write_head_;
 	buffer_type::pointer write_tail_;
+	application_ptr_type const application_;
 
 	void async_read_();
 	void async_write_();
