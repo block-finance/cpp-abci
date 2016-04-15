@@ -1,0 +1,12 @@
+# Visual Studio
+*.suo
+*.opensdf
+*.sdf
+*.user
+
+# Dependencies
+dependencies
+
+# Build
+deployment
+stage
