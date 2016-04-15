@@ -1,6 +1,6 @@
 #include "connection.hpp"
-#include <boost/throw_exception.hpp>
 #include <boost/log/trivial.hpp>
+#include <boost/throw_exception.hpp>
 #include <tmsp/types.pb.cc>
 
 
@@ -168,7 +168,7 @@ void connection_type::async_read_()
 			}
 
 			read_tail_ += transferred;
-			advance_read_buffer_();
+			try_advance_read_buffer_();
 			async_read_();
 		});
 }
@@ -200,12 +200,12 @@ void connection_type::async_write_()
 		write_tail_ = write_head_;
 
 		// Now that the write buffer is empty, see if there are any unprocessed requests available
-		advance_read_buffer_();
+		try_advance_read_buffer_();
 	}
 }
 
 
-void connection_type::advance_read_buffer_()
+void connection_type::try_advance_read_buffer_()
 {
 	while(read_head_ != read_tail_)
 	{
@@ -259,6 +259,65 @@ void connection_type::advance_read_buffer_()
 		read_tail_ = std::copy(read_head_, read_tail_, read_buffer_.data());
 		read_head_ = read_buffer_.data();
 	}
+}
+
+
+bool connection_type::prepare_response_(types::Request const& request, types::Response& response)
+{
+	if(request.type() == types::Echo)
+	{
+		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": Echo \"" << request.data() << "\"";
+		response.set_type(types::Echo);
+		response.set_code(types::OK);
+		response.set_data(request.data());
+		return true;
+	}
+	else if(request.type() == types::Info)
+	{
+		response.set_type(types::Info);
+		response.set_code(types::OK);
+		return true;
+	}
+	else if(request.type() == types::Flush)
+	{
+		response.set_type(types::Flush);
+		response.set_code(types::OK);
+		return true;
+	}
+	else if(request.type() == types::CheckTx)
+	{
+		response.set_type(types::CheckTx);
+		response.set_code(types::OK);
+		response.set_log("CheckTx on consensus connection");
+		return true;
+	}
+	else if(request.type() == types::AppendTx)
+	{
+		response.set_type(types::AppendTx);
+		response.set_code(types::OK);
+		response.set_log("AppendTx on consensus connection");
+		return true;
+	}
+	else if(request.type() == types::Commit)
+	{
+		response.set_type(types::Commit);
+		response.set_code(types::OK);
+		return true;
+	}
+	else if(request.type() == types::BeginBlock)
+	{
+		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": BeginBlock @ " << request.height();
+		return false;
+	}
+	else if(request.type() == types::EndBlock)
+	{
+		BOOST_LOG_TRIVIAL(debug) << socket_.remote_endpoint() << ": EndBlock @ " << request.height();
+		response.set_type(types::EndBlock);
+		response.set_code(types::OK);
+		return true;
+	}
+
+	BOOST_THROW_EXCEPTION(std::logic_error("unsupported TMSP request: " + request.DebugString()));
 }
 
 

@@ -31,8 +31,8 @@ protected:
 
 	void async_read_();
 	void async_write_();
-	void advance_read_buffer_();
-	virtual bool prepare_response_(types::Request const& request, types::Response& response) = 0;
+	void try_advance_read_buffer_();
+	bool prepare_response_(types::Request const& request, types::Response& response);
 	bool write_message_(google::protobuf::MessageLite const& message);
 };
 

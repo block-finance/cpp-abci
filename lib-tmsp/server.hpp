@@ -17,8 +17,7 @@ private:
 	boost::asio::ip::tcp::acceptor acceptor_;
 	boost::asio::ip::tcp::socket socket_;
 
-	void accept_consensus_connection_();
-	void accept_mempool_connection_();
+	void accept_connection_();
 };
 
 

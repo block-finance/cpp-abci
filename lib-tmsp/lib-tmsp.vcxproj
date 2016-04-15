@@ -12,14 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connection.cpp" />
-    <ClCompile Include="consensus_connection.cpp" />
-    <ClCompile Include="mempool_connection.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application.hpp" />
     <ClInclude Include="connection.hpp" />
-    <ClInclude Include="consensus_connection.hpp" />
-    <ClInclude Include="mempool_connection.hpp" />
     <ClInclude Include="server.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
