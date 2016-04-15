@@ -2,6 +2,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/endian/buffers.hpp>
 #include <boost/format.hpp>
+#include <boost/log/trivial.hpp>
 
 
 namespace counter
@@ -41,10 +42,11 @@ void application_type::info(std::string& out)
 
 void application_type::set_option(std::string const& key, std::string const& value, std::string& log)
 {
-	if(boost::iequals(key, "serial") && boost::iequals(value, "on"))
+	if(boost::iequals(key, "serial"))
 	{
 		std::unique_lock<std::mutex> lock(mutex_);
-		serial_ = true;
+		serial_ = boost::iequals(value, "on");
+		BOOST_LOG_TRIVIAL(debug) << "Serial mode: " << serial_;
 	}
 }
 
@@ -66,11 +68,13 @@ application_type::result_type application_type::query(std::string const& in, std
 
 void application_type::begin_block(std::uint64_t const& height)
 {
+	BOOST_LOG_TRIVIAL(debug) << "Begin block: " << height;
 }
 
 
 application_type::result_type application_type::end_block(std::uint64_t const& height)
 {
+	BOOST_LOG_TRIVIAL(debug) << "End block: " << height;
 	return result_type::OK;	
 }
 
