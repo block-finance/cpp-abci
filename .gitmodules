@@ -4,3 +4,6 @@
 [submodule "dependencies/protobuf"]
 	path = dependencies/protobuf
 	url = https://github.com/google/protobuf.git
+[submodule "dependencies/tmsp"]
+	path = dependencies/tmsp
+	url = https://github.com/tendermint/tmsp.git
