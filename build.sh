@@ -10,7 +10,7 @@ if ! [ -d "$INSTALL_PREFIX" ]
 then
         pushd "$BOOST_PREFIX"
         ./bootstrap.sh --prefix="$INSTALL_PREFIX"
-        ./b2 -j$JOBS cxxflags=-std=c++11 link=static install
+        ./b2 -j$JOBS cxxflags=-std=c++11 link=static define=NO_COMPRESSION install
         popd
 
         pushd "$PROTOBUF_PREFIX/cmake"
