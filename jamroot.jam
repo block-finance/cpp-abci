@@ -1,0 +1,25 @@
+project 
+	:	requirements
+			<toolset>msvc:<define>_WIN32_WINNT=0x0601
+			<toolset>gcc:<cxxflags>-std=c++11
+			<threading>multi
+			<runtime-link>shared
+			<optimization>speed
+	:	build-dir stage
+	:	default-build release
+;
+
+
+use-project /dependencies			: dependencies ;
+use-project /lib-tmsp				: lib-tmsp ;
+use-project /app-counter			: app-counter ;
+
+
+install deployment
+	:	# sources
+			/app-counter
+	:	# requirements
+	:	# default-build
+	:	# usage-requirements
+;
+

@@ -10,6 +10,7 @@ if ! [ -d "$INSTALL_PREFIX" ]
 then
         pushd "$BOOST_PREFIX"
         ./bootstrap.sh --prefix="$INSTALL_PREFIX"
+		./b2 headers
         ./b2 -j$JOBS cxxflags=-std=c++11 link=static define=NO_COMPRESSION install
         popd
 
@@ -23,3 +24,5 @@ then
         "$INSTALL_PREFIX/bin/protoc" --cpp_out="$INSTALL_PREFIX/include/tmsp" types.proto
         popd
 fi
+
+$BOOST_PREFIX/b2 -sBOOST_ROOT="$BOOST_PREFIX" -j$JOBS variant=release $@

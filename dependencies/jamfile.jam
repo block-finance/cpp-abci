@@ -1,0 +1,22 @@
+lib boost
+	:	# sources
+	:	# requirements
+			<file>install/lib/libboost_log.a
+			<file>install/lib/libboost_system.a
+			<file>install/lib/libboost_thread.a
+			<link>static
+	:	# default-build
+	:	# usage-requirements
+			<include>install/include
+;
+
+
+lib protobuf
+	:	# sources
+	:	# requirements
+			<file>install/lib/libprotobuf.a
+			<link>static
+	:	# default-build
+	:	# usage-requirements
+			<include>install/include
+;

@@ -19,6 +19,9 @@
     <ClInclude Include="connection.hpp" />
     <ClInclude Include="server.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="jamfile.jam" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

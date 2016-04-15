@@ -1,0 +1,9 @@
+exe app-counter
+	:	# sources
+			[ glob-tree *.cpp ]
+			/lib-tmsp
+	:	# requirements
+			<include>../
+	:	# default-build
+	:	# usage-requirements
+;

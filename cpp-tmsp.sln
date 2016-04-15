@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40C9DEDB-ECD8-40FE-B800-54E0F9FF3043}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{40C9DEDB-ECD8-40FE-B800-54E0F9FF3043}"
 	ProjectSection(SolutionItems) = preProject
 		build.cmd = build.cmd
 		build.sh = build.sh
+		jamroot.jam = jamroot.jam
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib-tmsp", "lib-tmsp\lib-tmsp.vcxproj", "{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app-counter", "app-counter\app-counter.vcxproj", "{DD3F33CA-1D18-4955-9987-315A7AD22DC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{82BA6AC6-6DEF-45E1-96F1-85FA0214CD9B}"
+	ProjectSection(SolutionItems) = preProject
+		dependencies\jamfile.jam = dependencies\jamfile.jam
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

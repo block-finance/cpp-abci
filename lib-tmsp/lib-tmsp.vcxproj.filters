@@ -9,4 +9,7 @@
     <ClInclude Include="server.hpp" />
     <ClInclude Include="application.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="jamfile.jam" />
+  </ItemGroup>
 </Project>

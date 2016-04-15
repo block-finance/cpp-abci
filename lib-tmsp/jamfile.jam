@@ -1,0 +1,10 @@
+lib lib-tmsp
+	:	# sources
+			[ glob-tree *.cpp ]
+			/dependencies//boost
+			/dependencies//protobuf
+	:	# requirements
+			<link>static
+	:	# default-build
+	:	# usage-requirements
+;
