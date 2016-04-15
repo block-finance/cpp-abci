@@ -21,6 +21,10 @@ int main(int argc, char const* argv[])
 			std::make_shared<counter::application_type>()
 			);
 		
+		// In this simple application, all work is scheduled on the main thread using boost asio (just below).
+		// Since the application is thus protected from being re-entered, there is no need for a mutex 
+		// inside the application. However it was left in in as a kind reminder that application
+		// state must be synchronized if the thread count ever increased.
 		io_service.run();
 	}
 

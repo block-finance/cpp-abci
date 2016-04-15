@@ -26,7 +26,7 @@ public:
 	virtual result_type commit(std::string& out, std::string& log);
 
 private:
-	std::mutex mutex_;
+	std::mutex mutex_;	// See main.cpp for explanation as to why this might be needed
 	std::uint64_t hash_count_;
 	std::uint64_t tx_count_;
 	bool serial_;
