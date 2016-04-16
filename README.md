@@ -3,11 +3,14 @@ C++ library for Tendermint Socket Protocol (TMSP) of [Tendermint](http://www.ten
 
 Look here for an overview of TMSP along with some tutorials: http://tendermint.com/posts/tendermint-socket-protocol/
 
-## Build instructions
+
+## Getting started
 
 1. Do a `git clone --recursive https://github.com/mdyring/cpp-tmsp.git`
-
 2. Run `./build.sh` or `build.cmd` on Windows
+3. Try the freshly baked counter demo application from the deployment folder: `./app-counter 127.0.0.1 46658`
+4. Tinker with the application using `tmsp-cli` - see [this tutorial](http://tendermint.com/tutorials/run-your-first-tmsp-application/) for inspiration
+
 
 ## Dependencies
 cpp-tmsp has a couple of dependencies:
