@@ -9,9 +9,9 @@ INSTALL_PREFIX="$DEPENDENCIES_PREFIX/install"
 if ! [ -d "$INSTALL_PREFIX" ]
 then
         pushd "$BOOST_PREFIX"
-        ./bootstrap.sh --prefix="$INSTALL_PREFIX"
+        ./bootstrap.sh --prefix="$INSTALL_PREFIX" --with-libraries=log,system,thread
 		./b2 headers
-        ./b2 -j$JOBS cxxflags=-std=c++11 link=static define=NO_COMPRESSION install
+        ./b2 -j$JOBS cxxflags=-std=c++11 link=static install
         popd
 
         pushd "$PROTOBUF_PREFIX/cmake"
