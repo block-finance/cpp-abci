@@ -298,7 +298,7 @@ bool connection_type::prepare_response_(types::Request const& request, types::Re
 	{
 		std::string out, log;
 		response.set_code(application_->query(request.data(), out, log));
-		response.set_type(types::CheckTx);
+		response.set_type(types::Query);
 		response.set_data(out);
 		response.set_log(log);
 		return true;
