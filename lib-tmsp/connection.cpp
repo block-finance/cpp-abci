@@ -12,40 +12,40 @@ namespace wire
 {
 
 
+/*
+	Original tendermint implementation:
+
+	func ReadVarint(r io.Reader, n *int, err *error) int {
+		var size = ReadUint8(r, n, err)
+		var negate = false
+		if (size >> 4) == 0xF {
+			negate = true
+			size = size & 0x0F
+		}
+		if size > 8 {
+			setFirstErr(err, errors.New("Varint overflow"))
+			return 0
+		}
+		if size == 0 {
+			if negate {
+				setFirstErr(err, errors.New("Varint does not allow negative zero"))
+			}
+			return 0
+		}
+		buf := make([]byte, 8)
+		ReadFull(buf[(8-size):], r, n, err)
+		var i = int(binary.BigEndian.Uint64(buf))
+		if negate {
+			return -i
+		} else {
+			return i
+		}
+	}
+*/
+
 template<typename Integer>
 bool read_variable_integer(buffer_type::pointer& iter, buffer_type::pointer end, Integer& result)
 {
-	/*
-		Original tendermint implementation:
-
-		func ReadVarint(r io.Reader, n *int, err *error) int {
-			var size = ReadUint8(r, n, err)
-			var negate = false
-			if (size >> 4) == 0xF {
-				negate = true
-				size = size & 0x0F
-			}
-			if size > 8 {
-				setFirstErr(err, errors.New("Varint overflow"))
-				return 0
-			}
-			if size == 0 {
-				if negate {
-					setFirstErr(err, errors.New("Varint does not allow negative zero"))
-				}
-				return 0
-			}
-			buf := make([]byte, 8)
-			ReadFull(buf[(8-size):], r, n, err)
-			var i = int(binary.BigEndian.Uint64(buf))
-			if negate {
-				return -i
-			} else {
-				return i
-			}
-		}
-	*/
-
 	auto size(*iter & char(0x0F));
 	auto const negate(*iter & char(0xF0));
 
@@ -78,33 +78,33 @@ bool read_variable_integer(buffer_type::pointer& iter, buffer_type::pointer end,
 }
 
 
+/*
+	Original tendermint implementation:
+
+	func WriteVarint(i int, w io.Writer, n *int, err *error) {
+		var negate = false
+		if i < 0 {
+			negate = true
+			i = -i
+		}
+		var size = uvarintSize(uint64(i))
+		if negate {
+			// e.g. 0xF1 for a single negative byte
+			WriteUint8(uint8(size+0xF0), w, n, err)
+		} else {
+			WriteUint8(uint8(size), w, n, err)
+		}
+		if size > 0 {
+			buf := make([]byte, 8)
+			binary.BigEndian.PutUint64(buf, uint64(i))
+			WriteTo(buf[(8-size):], w, n, err)
+		}
+	}
+*/
+
 template<typename Integer>
 bool write_variable_integer(buffer_type::pointer& iter, buffer_type::pointer end, Integer value)
 {
-	/*
-		Original tendermint implementation:
-
-		func WriteVarint(i int, w io.Writer, n *int, err *error) {
-			var negate = false
-			if i < 0 {
-				negate = true
-				i = -i
-			}
-			var size = uvarintSize(uint64(i))
-			if negate {
-				// e.g. 0xF1 for a single negative byte
-				WriteUint8(uint8(size+0xF0), w, n, err)
-			} else {
-				WriteUint8(uint8(size), w, n, err)
-			}
-			if size > 0 {
-				buf := make([]byte, 8)
-				binary.BigEndian.PutUint64(buf, uint64(i))
-				WriteTo(buf[(8-size):], w, n, err)
-			}
-		}
-	*/
-
 	if(iter == end)
 	{
 		return false;
