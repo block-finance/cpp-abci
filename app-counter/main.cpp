@@ -22,9 +22,8 @@ int main(int argc, char const* argv[])
 			);
 		
 		// In this simple application, all work is scheduled on the main thread using boost asio (just below).
-		// Since the application is thus protected from being re-entered, there is no need for a mutex 
-		// inside the application. However it was left in in as a kind reminder that application
-		// state must be synchronized if the thread count ever increased.
+		// Since the application is thus protected from being re-entered, there is no need for a mutex to synchronize access. 
+		// It was left there as a kind reminder that synchronization must be used if the thread count ever increases.
 		io_service.run();
 	}
 
