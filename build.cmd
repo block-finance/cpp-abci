@@ -13,7 +13,7 @@ call bootstrap.bat
 b2 headers
 set BOOST_LIBRARIES=--with-log --with-system --with-thread
 b2 --toolset=msvc-14.0 --prefix="%INSTALL_PREFIX%\debug" --layout=tagged %BOOST_LIBRARIES% address-model=64 link=static runtime-link=static variant=debug install
-b2 --toolset=msvc-14.0 --prefix="%INSTALL_PREFIX%\release" --layout=tagged %BOOST_LIBRARIES% --with-thread address-model=64 link=static runtime-link=static variant=release install
+b2 --toolset=msvc-14.0 --prefix="%INSTALL_PREFIX%\release" --layout=tagged %BOOST_LIBRARIES% address-model=64 link=static runtime-link=static variant=release install
 popd
 
 pushd "%PROTOBUF_PREFIX%\cmake"
