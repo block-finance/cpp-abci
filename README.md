@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/mdyring/cpp-tmsp.svg?branch=master)](https://travis-ci.org/mdyring/cpp-tmsp.svg?branch=master)
+
+
 # cpp-tmsp
 C++ library for Tendermint Socket Protocol (TMSP) of [Tendermint](http://www.tendermint.com) fame.
 
