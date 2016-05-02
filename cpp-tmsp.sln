@@ -6,7 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{40C9DEDB-ECD8-40FE-B800-54E0F9FF3043}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
-		build.cmd = build.cmd
+		appveyor.yml = appveyor.yml
+		build-dependencies.cmd = build-dependencies.cmd
 		build.sh = build.sh
 		jamroot.jam = jamroot.jam
 	EndProjectSection
