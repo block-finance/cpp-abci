@@ -6,9 +6,9 @@ BOOST_PREFIX="$DEPENDENCIES_PREFIX/boost"
 PROTOBUF_PREFIX="$DEPENDENCIES_PREFIX/protobuf"
 TMSP_PREFIX="$DEPENDENCIES_PREFIX/tmsp"
 
-if [ -z “$CC” ]
+if [ "$TRAVIS_OS_NAME" = "osx" ] && [ "$CC" = "gcc" ]
 then
-	TOOLSET=
+	TOOLSET=toolset=darwin
 else
 	TOOLSET=toolset=$CC
 fi
