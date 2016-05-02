@@ -18,7 +18,7 @@ then
         pushd "$BOOST_PREFIX"
         ./bootstrap.sh --prefix="$INSTALL_PREFIX" --with-libraries=log,system,thread
 		./b2 -d0 headers
-        ./b2 -d0 -j$JOBS toolset=$TOOLSET link=static install
+        ./b2 -d0 -j$JOBS toolset=$TOOLSET cxxflags=-std=c++11 link=static install
         popd
 
         pushd "$PROTOBUF_PREFIX/cmake"
@@ -32,4 +32,4 @@ then
         popd
 fi
 
-$BOOST_PREFIX/b2 -sBOOST_ROOT="$BOOST_PREFIX" -j$JOBS toolset=$TOOLSET variant=release $@
+$BOOST_PREFIX/b2 -sBOOST_ROOT="$BOOST_PREFIX" -j$JOBS toolset=$TOOLSET cxxflags=-std=c++11 variant=release $@
