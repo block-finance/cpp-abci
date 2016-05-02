@@ -10,13 +10,13 @@ if ! [ -d "$INSTALL_PREFIX" ]
 then
         pushd "$BOOST_PREFIX"
         ./bootstrap.sh --prefix="$INSTALL_PREFIX" --with-libraries=log,system,thread
-		./b2 headers
-        ./b2 -j$JOBS cxxflags=-std=c++11 link=static install
+		./b2 -d0 headers
+        ./b2 -d0 -j$JOBS cxxflags=-std=c++11 link=static install
         popd
 
         pushd "$PROTOBUF_PREFIX/cmake"
         cmake -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -Dprotobuf_BUILD_TESTS=OFF .
-        make install
+        make -j $JOBS -s install
         popd
 
         mkdir "$INSTALL_PREFIX/include/tmsp"
@@ -25,4 +25,4 @@ then
         popd
 fi
 
-$BOOST_PREFIX/b2 -sBOOST_ROOT="$BOOST_PREFIX" -j$JOBS variant=release $@
+$BOOST_PREFIX/b2 -sBOOST_ROOT="$BOOST_PREFIX" -d0 -j$JOBS variant=release $@
