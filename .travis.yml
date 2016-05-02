@@ -6,4 +6,5 @@ compiler:
 - gcc
 os:
 - linux
+- osx
 script: ./build.sh
