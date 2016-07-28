@@ -265,80 +265,59 @@ void connection_type::try_advance_read_buffer_()
 
 bool connection_type::prepare_response_(types::Request const& request, types::Response& response)
 {
-	if(request.type() == types::Echo)
+	if(request.has_echo())
 	{
-		response.set_type(types::Echo);
-		response.set_data(request.data());
-		response.set_code(types::OK);
+		response.mutable_echo()->set_message(request.echo().message());
 		return true;
 	}
-	else if(request.type() == types::Flush)
+	else if(request.has_flush())
 	{
-		response.set_type(types::Flush);
-		response.set_code(types::OK);
+		response.mutable_flush();
 		return true;
 	}
-	else if(request.type() == types::Info)
+	else if(request.has_info())
 	{
-		std::string out;
-		application_->info(out);
-		response.set_type(types::Info);
-		response.set_data(out);
+		application_->info(*response.mutable_info()->mutable_info());
 		return true;
 	}
-	else if(request.type() == types::SetOption)
+	else if(request.has_set_option())
 	{
-		std::string log;
-		application_->set_option(request.key(), request.value(), log);
-		response.set_type(types::SetOption);
-		response.set_log(log);
+		application_->set_option(request.set_option().key(), request.set_option().value(), *response.mutable_set_option()->mutable_log());
 		return true;
 	}
-	else if(request.type() == types::Query)
+	else if(request.has_query())
 	{
-		std::string out, log;
-		response.set_code(application_->query(request.data(), out, log));
-		response.set_type(types::Query);
-		response.set_data(out);
-		response.set_log(log);
+		auto const query_response(response.mutable_query());
+		query_response->set_code(application_->query(request.query().query(), *query_response->mutable_data(), *query_response->mutable_log()));
 		return true;
 	}
-	else if(request.type() == types::BeginBlock)
+	else if(request.has_begin_block())
 	{
-		application_->begin_block(request.height());
+		application_->begin_block(request.begin_block().height());
 		return false;
 	}
-	else if(request.type() == types::EndBlock)
+	else if(request.has_end_block())
 	{
-		response.set_type(types::EndBlock);
-		response.set_code(application_->end_block(request.height()));
+		// TODO: Implement validator diffs
+		response.mutable_end_block();
 		return true;
 	}
-	else if(request.type() == types::CheckTx)
+	else if(request.has_check_tx())
 	{
-		std::string out, log;
-		response.set_code(application_->check_tx(request.data(), out, log));
-		response.set_type(types::CheckTx);
-		response.set_data(out);
-		response.set_log(log);
+		auto const check_tx_response(response.mutable_check_tx());
+		check_tx_response->set_code(application_->check_tx(request.check_tx().tx(), *check_tx_response->mutable_data(), *check_tx_response->mutable_log()));
 		return true;
 	}
-	else if(request.type() == types::AppendTx)
+	else if(request.has_append_tx())
 	{
-		std::string out, log;
-		response.set_code(application_->append_tx(request.data(), out, log));
-		response.set_type(types::AppendTx);
-		response.set_data(out);
-		response.set_log(log);
+		auto const append_tx_response(response.mutable_append_tx());
+		append_tx_response->set_code(application_->append_tx(request.check_tx().tx(), *append_tx_response->mutable_data(), *append_tx_response->mutable_log()));
 		return true;
 	}
-	else if(request.type() == types::Commit)
+	else if(request.has_commit())
 	{
-		std::string out, log;
-		application_->commit(out, log);
-		response.set_type(types::Commit);
-		response.set_data(out);
-		response.set_log(log);
+		auto const commit_response(response.mutable_commit());
+		commit_response->set_code(application_->commit(*commit_response->mutable_data(), *commit_response->mutable_log()));
 		return true;
 	}
 
