@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{40C9DEDB-ECD8-40FE-B800-54E0F9FF3043}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{40C9DEDB-E
 		build-dependencies.cmd = build-dependencies.cmd
 		build.sh = build.sh
 		jamroot.jam = jamroot.jam
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib-tmsp", "lib-tmsp\lib-tmsp.vcxproj", "{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib-abci", "lib-abci\lib-abci.vcxproj", "{5B8AD5AC-4438-4C08-B387-DF96E012EF6C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app-counter", "app-counter\app-counter.vcxproj", "{DD3F33CA-1D18-4955-9987-315A7AD22DC1}"
 EndProject

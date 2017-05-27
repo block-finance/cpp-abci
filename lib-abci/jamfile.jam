@@ -1,4 +1,4 @@
-lib lib-tmsp
+lib lib-abci
 	:	# sources
 			[ glob-tree *.cpp ]
 			/dependencies//boost

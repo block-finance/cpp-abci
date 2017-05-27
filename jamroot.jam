@@ -11,7 +11,7 @@ project
 
 
 use-project /dependencies			: dependencies ;
-use-project /lib-tmsp				: lib-tmsp ;
+use-project /lib-abci				: lib-abci ;
 use-project /app-counter			: app-counter ;
 
 
@@ -22,4 +22,3 @@ install deployment
 	:	# default-build
 	:	# usage-requirements
 ;
-
